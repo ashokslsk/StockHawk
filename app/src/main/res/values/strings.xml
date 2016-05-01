@@ -10,4 +10,8 @@
   <string name="input_hint">FB</string>
   <string name="input_prefill"></string>
   <string name="network_toast">Uh-oh! This app requires an internet connection</string>
+
+  <string name="error_no_symbol"  translatable="false">Error! symbol Not found</string>
+  <string name="string_symbol_found" translatable="false">Success! added new Symbol</string>
+
 </resources>
