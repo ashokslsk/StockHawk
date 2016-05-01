@@ -13,8 +13,9 @@ import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 import com.sam_chordas.android.stockhawk.rest.Utils;
 
 /**
- * Created by yogeshmadaan on 09/03/16.
+ * Created by ashok.kumar on 01/05/16.
  */
+
 public class QuoteWidgetRemoteViewsService extends RemoteViewsService {
 
     @Override

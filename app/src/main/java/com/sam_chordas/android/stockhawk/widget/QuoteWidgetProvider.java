@@ -15,7 +15,7 @@ import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.ui.MyStocksActivity;
 
 /**
- * Created by yogeshmadaan on 09/03/16.
+ * Created by ashok.kumar on 01/05/16.
  */
 public class QuoteWidgetProvider extends AppWidgetProvider {
     @Override

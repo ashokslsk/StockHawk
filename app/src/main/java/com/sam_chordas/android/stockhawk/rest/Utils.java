@@ -20,6 +20,13 @@ public class Utils {
   private static String LOG_TAG = Utils.class.getSimpleName();
 
   public static boolean showPercent = true;
+  private static final String KEY_QUERY = "query";
+  private static final String KEY_COUNT = "count";
+  private static final String KEY_RESULTS = "results";
+  private static final String KEY_QUOTE = "quote";
+  private static final String KEY_CHANGE = "Change";
+  private static final String KEY_CHANGE_PERCENTAGE = "ChangeinPercent";
+  private static final String KEY_BID = "Bid";
 
   public static ArrayList quoteJsonToContentVals(String JSON){
     ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>();
@@ -29,16 +36,16 @@ public class Utils {
     try{
       jsonObject = new JSONObject(JSON);
       if (jsonObject != null && jsonObject.length() != 0){
-        jsonObject = jsonObject.getJSONObject("query");
-        int count = Integer.parseInt(jsonObject.getString("count"));
+        jsonObject = jsonObject.getJSONObject(KEY_QUERY);
+        int count = Integer.parseInt(jsonObject.getString(KEY_COUNT));
         if (count == 1){
-          jsonObject = jsonObject.getJSONObject("results")
-                  .getJSONObject("quote");
+          jsonObject = jsonObject.getJSONObject(KEY_RESULTS)
+                  .getJSONObject(KEY_QUOTE);
           ContentProviderOperation obj =  buildBatchOperation(jsonObject);
           if(obj!=null)
             batchOperations.add(obj);
         } else{
-          resultsArray = jsonObject.getJSONObject("results").getJSONArray("quote");
+          resultsArray = jsonObject.getJSONObject(KEY_RESULTS).getJSONArray(KEY_QUOTE);
 
           if (resultsArray != null && resultsArray.length() != 0){
             for (int i = 0; i < resultsArray.length(); i++){
@@ -81,18 +88,18 @@ public class Utils {
             QuoteProvider.Quotes.CONTENT_URI);
     String changes = null;
     try {
-      changes = jsonObject.getString("Change");
+      changes = jsonObject.getString(KEY_CHANGE);
     } catch (JSONException e) {
       e.printStackTrace();
     }
     Log.d("values", changes);
     if (changes != null && changes != "null") {
       try {
-        String change = jsonObject.getString("Change");
-        builder.withValue(QuoteColumns.SYMBOL, jsonObject.getString("symbol"));
-        builder.withValue(QuoteColumns.BIDPRICE, truncateBidPrice(jsonObject.getString("Bid")));
+        String change = jsonObject.getString(KEY_CHANGE);
+        builder.withValue(QuoteColumns.SYMBOL, jsonObject.getString(QuoteColumns.SYMBOL));
+        builder.withValue(QuoteColumns.BIDPRICE, truncateBidPrice(jsonObject.getString(KEY_BID)));
         builder.withValue(QuoteColumns.PERCENT_CHANGE, truncateChange(
-                jsonObject.getString("ChangeinPercent"), true));
+                jsonObject.getString(KEY_CHANGE_PERCENTAGE), true));
         builder.withValue(QuoteColumns.CHANGE, truncateChange(change, false));
         builder.withValue(QuoteColumns.ISCURRENT, 1);
         if (change.charAt(0) == '-') {

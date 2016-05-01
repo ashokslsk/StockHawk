@@ -8,11 +8,9 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.db.chart.Tools;
 import com.db.chart.model.LineSet;
@@ -43,7 +41,7 @@ public class StockDetailActivity extends AppCompatActivity implements
         initLineChart();
         Intent intent = getIntent();
         Bundle args = new Bundle();
-        args.putString("symbol", intent.getStringExtra("symbol"));
+        args.putString(getResources().getString(R.string.string_symbol), intent.getStringExtra(getResources().getString(R.string.string_symbol)));
         getLoaderManager().initLoader(CURSOR_LOADER_ID, args, this);
     }
 
@@ -51,7 +49,7 @@ public class StockDetailActivity extends AppCompatActivity implements
         return new CursorLoader(this, QuoteProvider.Quotes.CONTENT_URI,
                 new String[]{ QuoteColumns.BIDPRICE},
                 QuoteColumns.SYMBOL + " = ?",
-                new String[]{args.getString("symbol")},
+                new String[]{args.getString(getResources().getString(R.string.string_symbol))},
                 null);
     }
 
@@ -72,17 +70,17 @@ public class StockDetailActivity extends AppCompatActivity implements
             mLineSet.addPoint("test " + i, price);
             mCursor.moveToNext();
         }
-        mLineSet.setColor(Color.parseColor("#e50000"))
+        mLineSet.setColor(getResources().getColor(R.color.line_set))
                 .setDotsStrokeThickness(Tools.fromDpToPx(2))
-                .setDotsStrokeColor(Color.parseColor("#e50000"))
-                .setDotsColor(Color.parseColor("#eef1f6"));
+                .setDotsStrokeColor(getResources().getColor(R.color.line_stroke))
+                .setDotsColor(getResources().getColor(R.color.line_dots));
         lineChartView.addData(mLineSet);
         lineChartView.show();
     }
 
     private void initLineChart() {
         Paint gridPaint = new Paint();
-        gridPaint.setColor(Color.parseColor("#308E9196"));
+        gridPaint.setColor(getResources().getColor(R.color.line_paint));
         gridPaint.setStyle(Paint.Style.STROKE);
         gridPaint.setAntiAlias(true);
         gridPaint.setStrokeWidth(Tools.fromDpToPx(1f));
@@ -90,7 +88,7 @@ public class StockDetailActivity extends AppCompatActivity implements
                 .setAxisBorderValues(minRange-100, maxRange+100, 50)
                 .setXLabels(AxisController.LabelPosition.OUTSIDE)
                 .setYLabels(AxisController.LabelPosition.OUTSIDE)
-                .setLabelsColor(Color.parseColor("#FF8E9196"))
+                .setLabelsColor(getResources().getColor(R.color.line_labels))
                 .setXAxis(false)
                 .setYAxis(false)
                 .setBorderSpacing(Tools.fromDpToPx(5))
@@ -107,7 +105,6 @@ public class StockDetailActivity extends AppCompatActivity implements
         minRange = Math.round(Collections.min(mArrayList));
         if(minRange>100)
             minRange = minRange-100;
-        Log.e("min range "+minRange,"max range "+maxRange);
 //        if(maxRange-minRange>10)
 //            step = Math.round((maxRange*1.0f - minRange*1.0f)/10);
 //        if(step==0)

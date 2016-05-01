@@ -3,38 +3,40 @@
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    >
-    <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fitsSystemWindows="true">
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:fab="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
+                android:id="@+id/text_no_network"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/network_error"
                 android:gravity="center"
                 android:padding="10dp"
-                android:id="@+id/text_no_network"
-                android:visibility="gone"/>
+                android:text="@string/network_error"
+                android:visibility="gone" />
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/text_no_network"
-                />
+                android:layout_below="@+id/text_no_network" />
         </RelativeLayout>
+
         <com.melnykov.fab.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
+            android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
+            android:contentDescription="@string/content_description_add_stock"
             android:src="@drawable/ic_add_white_24dp"
             fab:fab_colorNormal="@color/material_blue_500"
             fab:fab_colorPressed="@color/material_blue_600"
@@ -42,8 +44,6 @@
             fab:fab_shadow="true"
             fab:fab_type="normal"
             fab:layout_anchor="recycler_view"
-            fab:layout_anchorGravity="bottom | end"
-            android:contentDescription="@string/content_description_add_stock"
-            />
+            fab:layout_anchorGravity="bottom | end" />
     </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>
