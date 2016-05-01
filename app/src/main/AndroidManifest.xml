@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sam_chordas.android.stockhawk" >
+    package="com.sam_chordas.android.stockhawk">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-
+        android:theme="@style/AppTheme"
+        android:supportsRtl="true">
         <uses-permission android:name="android.permission.INTERNET" />
         <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
         <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -16,11 +16,11 @@
             android:name="com.google.android.gcm.demo.permission.C2D_MESSAGE"
             android:protectionLevel="signature" />
 
-        <uses-permission
-            android:name="com.google.android.gcm.demo.permission.C2D_MESSAGE" />
+        <uses-permission android:name="com.google.android.gcm.demo.permission.C2D_MESSAGE" />
+
         <activity
-            android:name="com.sam_chordas.android.stockhawk.ui.MyStocksActivity"
-            android:label="@string/app_name" >
+            android:name=".ui.MyStocksActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,24 +28,42 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ui.StockDetailActivity"
-            android:label="@string/activity_stock_detail_title"
-            android:parentActivityName="com.sam_chordas.android.stockhawk.ui.MyStocksActivity"/>
-
-
-        <service android:name="com.sam_chordas.android.stockhawk.service.StockTaskService"
-            android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE"
-            android:exported="true">
+        <service
+            android:name=".service.StockTaskService"
+            android:exported="true"
+            android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE">
             <intent-filter>
-                <action android:name="com.google.android.gms.gcm.ACTION_TASK_READY"/>
+                <action android:name="com.google.android.gms.gcm.ACTION_TASK_READY" />
             </intent-filter>
         </service>
-        <service android:name="com.sam_chordas.android.stockhawk.service.StockIntentService" />
+        <service android:name=".service.StockIntentService" />
+
         <provider
+            android:name=".data.generated.QuoteProvider"
             android:authorities="com.sam_chordas.android.stockhawk.data.QuoteProvider"
-            android:name="com.sam_chordas.android.stockhawk.data.generated.QuoteProvider"
-            android:exported="false"/>
+            android:exported="false" />
+
+        <receiver
+            android:name=".widget.QuoteWidgetProvider"
+            android:label="@string/widget_title">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info" />
+        </receiver>
+
+        <service
+            android:name=".widget.QuoteWidgetRemoteViewsService"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <activity
+            android:name=".ui.StockDetailActivity"
+            android:label="@string/title_activity_stock_detail"
+            android:parentActivityName="com.sam_chordas.android.stockhawk.ui.MyStocksActivity"/>
     </application>
 
 </manifest>
