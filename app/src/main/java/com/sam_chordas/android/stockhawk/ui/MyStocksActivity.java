@@ -88,6 +88,10 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
               public void onItemClick(View v, int position) {
                 //TODO:
                 // do something on item click
+                Intent graphIntent = new Intent(mContext, StockDetailActivity.class);
+                mCursor.moveToPosition(position);
+                graphIntent.putExtra("symbol", mCursor.getString(mCursor.getColumnIndex("symbol")));
+                mContext.startActivity(graphIntent);
               }
             }));
     recyclerView.setAdapter(mCursorAdapter);
@@ -110,14 +114,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                       Cursor c = getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,
                               new String[]{QuoteColumns.SYMBOL}, QuoteColumns.SYMBOL + "= ?",
                               new String[]{input.toString()}, null);
-                      if(input.length() == 0){
-                        Toast toast =
-                                Toast.makeText(MyStocksActivity.this, R.string.Empty_Stock_Input_Message,
-                                        Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER, Gravity.CENTER, 0);
-                        toast.show();
-                      }
-
                       if (c.getCount() != 0) {
                         Toast toast =
                                 Toast.makeText(MyStocksActivity.this, "This stock is already saved!",

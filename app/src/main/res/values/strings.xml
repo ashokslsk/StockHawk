@@ -14,5 +14,7 @@
   <string name="error_no_symbol"  translatable="false">Error! symbol Not found</string>
   <string name="string_symbol_found" translatable="false">Success! added new Symbol</string>
   <string name="Empty_Stock_Input_Message">Please enter the stock symbol</string>
+  <string name="activity_stock_detail_title">StockDetailActivity</string>
+
 
 </resources>
